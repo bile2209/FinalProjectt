@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Submission – Lê Văn Bi | SE200467</title>
+  <meta name="description" content="Portfolio website submission for Web Development – Lê Văn Bi, FPT University." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+       RESET
+    ================================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+
+    /* ================================================================
+       DESIGN TOKENS
+    ================================================================ */
+    :root {
+      --navy-deep:   #07111F;
+      --navy-mid:    #0F2840;
+      --navy-light:  #1A3F60;
+      --red:         #C0392B;
+      --red-light:   #E74C3C;
+      --bg:          #F0F4F9;
+      --surface:     #FFFFFF;
+      --border:      #D8E3EF;
+      --text:        #0F2030;
+      --muted:       #5D7A94;
+      --placeholder: #EAF0F8;
+      --success:     #1A7F5A;
+      --code-bg:     #0D1117;
+      --code-text:   #E6EDF3;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+      --radius-sm:  6px;
+      --radius:     12px;
+      --radius-lg:  18px;
+      --shadow-sm:  0 1px 3px rgba(7,17,31,.07), 0 2px 8px rgba(7,17,31,.05);
+      --shadow:     0 2px 6px rgba(7,17,31,.08), 0 6px 24px rgba(7,17,31,.07);
+    }
+
+    /* ================================================================
+       BASE
+    ================================================================ */
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ================================================================
+       PAGE WRAPPER
+    ================================================================ */
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    /* ================================================================
+       HEADER
+    ================================================================ */
+    .pg-header {
+      background: var(--navy-deep);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: 56px 48px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pg-header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border: 1px solid rgba(255,255,255,.04);
+      border-radius: 50%;
+    }
+    .pg-header::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: 60px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(192,57,43,.12) 0%, transparent 70%);
+    }
+
+    .header-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 14px;
+    }
+    .header-name {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .header-name em {
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,255,255,.55);
+      display: block;
+      font-size: clamp(18px, 3.5vw, 28px);
+      margin-top: 6px;
+    }
+    .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 26px;
+    }
+    .meta-pill {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,.65);
+      font-family: var(--font-mono);
+      letter-spacing: .04em;
+    }
+
+    /* ================================================================
+       RUBRIC BANNER
+    ================================================================ */
+    .rubric-bar {
+      background: var(--red);
+      padding: 16px 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+    .r-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,.9);
+      font-size: 12.5px;
+      font-weight: 500;
+    }
+    .r-check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       SECTION CARD
+    ================================================================ */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 38px 44px;
+      margin-top: 20px;
+      box-shadow: var(--shadow);
+    }
+    @media (max-width: 600px) {
+      .card { padding: 28px 22px; }
+      .pg-header { padding: 40px 24px 36px; }
+      .rubric-bar { padding: 14px 24px; }
+    }
+
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--navy-mid);
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ================================================================
+       SCORE BADGE
+    ================================================================ */
+    .score {
+      background: var(--navy-mid);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 12px;
+      border-radius: 100px;
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       BODY TEXT
+    ================================================================ */
+    .body-text { font-size: 15px; color: var(--text); line-height: 1.75; }
+    .body-text p + p { margin-top: 12px; }
+    .muted { color: var(--muted); font-size: 14px; }
+
+    /* ================================================================
+       FEATURE LIST
+    ================================================================ */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      margin-top: 18px;
+    }
+    @media (max-width: 560px) { .feature-grid { grid-template-columns: 1fr; } }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+    }
+    .f-dot {
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       SITE LINK
+    ================================================================ */
+    .site-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 22px;
+      text-decoration: none;
+      background: var(--placeholder);
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+    .site-link:hover {
+      border-color: var(--navy-mid);
+      box-shadow: 0 0 0 4px rgba(15,40,64,.08);
+      background: #fff;
+    }
+    .link-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: var(--navy-mid);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .link-label { font-weight: 600; font-size: 14px; color: var(--text); }
+    .link-url {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 2px;
+      word-break: break-all;
+    }
+
+    /* ================================================================
+       SCREENSHOT GRID
+    ================================================================ */
+    .ss-grid { display: grid; gap: 16px; }
+    .ss-grid.two { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 560px) { .ss-grid.two { grid-template-columns: 1fr; } }
+
+    .ss-box {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--placeholder);
+      overflow: hidden;
+      position: relative;
+    }
+    .ss-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+    .ss-placeholder {
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      gap: 8px;
+    }
+    .ss-placeholder-icon {
+      font-size: 24px;
+      opacity: .35;
+    }
+    .ss-placeholder-text {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+    .ss-caption {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 7px;
+      font-family: var(--font-mono);
+    }
+
+    /* ================================================================
+       CODE BLOCK
+    ================================================================ */
+    .code-block {
+      background: var(--code-bg);
+      border-radius: var(--radius-sm);
+      padding: 18px 22px;
+      overflow-x: auto;
+      margin-top: 14px;
+    }
+    .code-block pre {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--code-text);
+      line-height: 1.75;
+      white-space: pre;
+    }
+    .t-comment  { color: #8B949E; }
+    .t-selector { color: #7EE787; }
+    .t-prop     { color: #79C0FF; }
+    .t-val      { color: #A5D6FF; }
+    .t-punc     { color: #E6EDF3; }
+    .t-keyword  { color: #FF7B72; }
+    .t-string   { color: #A5D6FF; }
+
+    /* ================================================================
+       EXTRAS GRID
+    ================================================================ */
+    .extras-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 4px;
+    }
+    @media (max-width: 580px) { .extras-grid { grid-template-columns: 1fr; } }
+
+    .extra-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 22px;
+      background: var(--placeholder);
+    }
+    .extra-num {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--red);
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .extra-name {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy-mid);
+      margin-bottom: 8px;
+    }
+    .extra-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 4px;
+    }
+
+    /* ================================================================
+       DIVIDER
+    ================================================================ */
+    .divider {
+      border: none;
+      border-top: 1.5px solid var(--border);
+      margin: 20px 0;
+    }
+
+    /* ================================================================
+       FILL NOTICE  (edit-mode helper — remove before submitting)
+    ================================================================ */
+    .fill-notice {
+      background: #FFF8E1;
+      border-left: 3px solid #F9A825;
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: #5D4037;
+      font-family: var(--font-mono);
+      margin-bottom: 16px;
+      letter-spacing: .01em;
+    }
+    .fill-notice::before { content: "EDIT BEFORE SUBMITTING  →  "; font-weight: 700; }
+
+    /* ================================================================
+       FOOTER
+    ================================================================ */
+    .pg-footer {
+      text-align: center;
+      margin-top: 44px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ════════════════════════════════
+       HEADER
+  ════════════════════════════════ -->
+  <header class="pg-header">
+    <div class="header-eyebrow">Portfolio Submission &nbsp;&middot;&nbsp; Web Development</div>
+    <h1 class="header-name">
+      Lê Văn Bi
+      <em>Portfolio Website</em>
+    </h1>
+    <div class="header-meta">
+      <span class="meta-pill">FPT University</span>
+      <span class="meta-pill">SE200467</span>
+      <span class="meta-pill">AY 2025 &ndash; 2026</span>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════
+       RUBRIC CHECKLIST
+  ════════════════════════════════ -->
+  <div class="rubric-bar">
+    <div class="r-item"><span class="r-check">&#10003;</span>W3C Compliant</div>
+    <div class="r-item"><span class="r-check">&#10003;</span>Responsive</div>
+    <div class="r-item"><span class="r-check">&#10003;</span>Well-Styled</div>
+    <div class="r-item"><span class="r-check">&#10003;</span>4 Extras</div>
+    <div class="r-item"><span class="r-check">&#10003;</span>Hosted &amp; Linked</div>
+  </div>
+
+
+  <!-- ════════════════════════════════
+       01 – PROJECT DESCRIPTION
+  ════════════════════════════════ -->
+  <section class="card">
+    <div class="card-tag">Section 01</div>
+    <h2 class="card-title">
+      Project Description
+      <span class="score">~25 pts</span>
+    </h2>
+
+    <div class="fill-notice">Replace this paragraph with your own project description. Describe what the site is, what you built, and why.</div>
+
+    <div class="body-text">
+      <p>
+        <!-- ✏️ FILL: Write 2–3 sentences describing your portfolio site here. -->
+        This is my personal portfolio website, built as the final project for the Web Development course at FPT University. The site showcases my background, technical skills, and selected projects developed throughout the semester.
+      </p>
+      <p>
+        <!-- ✏️ FILL: Mention your tech stack. Example below: -->
+        The site is built with plain HTML5, CSS3, and vanilla JavaScript. No external CSS frameworks were used; all styling is hand-written to demonstrate proficiency with core CSS concepts.
+      </p>
+    </div>
+
+    <hr class="divider" />
+
+    <p class="muted" style="margin-bottom: 12px;">Pages included in the site:</p>
+    <ul class="feature-grid" style="list-style:none;">
+      <!-- ✏️ FILL: List the actual pages/sections of your site. Remove extras or add more. -->
+      <li class="feature-item"><span class="f-dot"></span>Home / Landing page</li>
+      <li class="feature-item"><span class="f-dot"></span>About Me</li>
+      <li class="feature-item"><span class="f-dot"></span>Projects</li>
+      <li class="feature-item"><span class="f-dot"></span>Skills &amp; Tools</li>
+      <li class="feature-item"><span class="f-dot"></span>Contact Form</li>
+      <li class="feature-item"><span class="f-dot"></span><!-- ✏️ Add page --></li>
+    </ul>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       02 – LIVE SITE LINK
+  ════════════════════════════════ -->
+  <section class="card">
+    <div class="card-tag">Section 02</div>
+    <h2 class="card-title">Live Site</h2>
+
+    <div class="fill-notice">Replace the href and the URL text below with your real hosted link.</div>
+
+    <!-- ✏️ FILL: Change href="YOUR_URL_HERE" to your real URL. Also update the .link-url text. -->
+    <a class="site-link" href="YOUR_URL_HERE" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon">&#127760;</div>
+      <div>
+        <div class="link-label">Visit Live Portfolio &rarr;</div>
+        <div class="link-url">https://YOUR_URL_HERE</div>
+      </div>
+    </a>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       03 – W3C COMPLIANCE
+  ════════════════════════════════ -->
+  <section class="card">
+    <div class="card-tag">Section 03</div>
+    <h2 class="card-title">
+      W3C Validator Compliance
+      <span class="score">~25 pts</span>
+    </h2>
+
+    <p class="muted" style="margin-bottom: 18px;">
+      All pages were validated at
+      <strong style="color:var(--text);">validator.w3.org</strong>.
+      Each page passes with <strong style="color: var(--success);">0 errors</strong>
+      and <strong style="color: var(--success);">0 warnings</strong>.
+    </p>
+
+    <div class="ss-grid two">
+
+      <div>
+        <!-- ✏️ FILL: Replace the <div class="ss-placeholder"> block below with:
+             <img src="YOUR_W3C_SCREENSHOT_1.png" alt="W3C result – index.html">
+             Make sure the image file is in the same folder as this HTML file. -->
+        <div class="ss-box">
+          <div class="ss-placeholder">
+            <div class="ss-placeholder-icon">&#128247;</div>
+            <div class="ss-placeholder-text">W3C result &mdash; index.html<br/>Replace with screenshot</div>
+          </div>
+        </div>
+        <div class="ss-caption">index.html &mdash; 0 errors, 0 warnings</div>
+      </div>
+
+      <div>
+        <!-- ✏️ FILL: Same here for a second page (e.g., about.html or contact.html). -->
+        <div class="ss-box">
+          <div class="ss-placeholder">
+            <div class="ss-placeholder-icon">&#128247;</div>
+            <div class="ss-placeholder-text">W3C result &mdash; page 2<br/>Replace with screenshot</div>
+          </div>
+        </div>
+        <div class="ss-caption"><!-- ✏️ FILL: page2.html --> &mdash; 0 errors, 0 warnings</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       04 – RESPONSIVE DESIGN
+  ════════════════════════════════ -->
+  <section class="card">
+    <div class="card-tag">Section 04</div>
+    <h2 class="card-title">
+      Responsive Design
+      <span class="score">~25 pts</span>
+    </h2>
+
+    <p class="muted" style="margin-bottom: 18px;">
+      The layout adapts fluidly across desktop (&ge;1024px), tablet (768px), and mobile (375px) using
+      CSS media queries and a Flexbox/Grid-based layout system.
+    </p>
+
+    <!-- ✏️ FILL: Replace this placeholder with a side-by-side screenshot of your site on 3 screen sizes.
+         Recommended: use browser DevTools responsive mode and screenshot all three.
+         <img src="responsive_all.png" alt="Responsive layout – desktop, tablet, mobile"> -->
+    <div class="ss-grid">
+      <div class="ss-box">
+        <div class="ss-placeholder" style="min-height: 220px;">
+          <div class="ss-placeholder-icon">&#128247;</div>
+          <div class="ss-placeholder-text">
+            Side-by-side screenshot:<br/>
+            Desktop &nbsp;&middot;&nbsp; Tablet &nbsp;&middot;&nbsp; Mobile<br/>
+            Replace with your responsive demo image
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <p class="muted" style="margin-bottom: 12px; font-size: 13px;">Key CSS used for responsiveness:</p>
+    <div class="code-block">
+      <pre>
+<span class="t-comment">/* ── Mobile-first breakpoints ──────────────────── */</span>
+<span class="t-selector">@media (max-width: 768px)</span> <span class="t-punc">{</span>
+  <span class="t-selector">.nav-links</span> <span class="t-punc">{</span>
+    <span class="t-prop">display</span><span class="t-punc">:</span>         <span class="t-val">none</span><span class="t-punc">;</span>       <span class="t-comment">/* hidden until toggled */</span>
+    <span class="t-prop">flex-direction</span><span class="t-punc">:</span> <span class="t-val">column</span><span class="t-punc">;</span>
+  <span class="t-punc">}</span>
+  <span class="t-selector">.nav-links.open</span> <span class="t-punc">{</span> <span class="t-prop">display</span><span class="t-punc">:</span> <span class="t-val">flex</span><span class="t-punc">;</span> <span class="t-punc">}</span>
+  <span class="t-selector">.hero-grid</span> <span class="t-punc">{</span>
+    <span class="t-prop">grid-template-columns</span><span class="t-punc">:</span> <span class="t-val">1fr</span><span class="t-punc">;</span>   <span class="t-comment">/* single column */</span>
+  <span class="t-punc">}</span>
+<span class="t-punc">}</span>
+
+<span class="t-comment">/* ── ✏️ FILL: Add your own responsive CSS snippets below ── */</span></pre>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       05 – CSS STYLING SHOWCASE
+  ════════════════════════════════ -->
+  <section class="card">
+    <div class="card-tag">Section 05</div>
+    <h2 class="card-title">CSS Styling</h2>
+
+    <p class="muted" style="margin-bottom: 18px;">
+      The site uses a consistent design system built on CSS custom properties,
+      a deliberate typographic scale, and layout patterns with Grid and Flexbox.
+    </p>
+
+    <!-- ✏️ FILL: Paste your real CSS highlights here. Replace these examples with your own. -->
+    <div class="code-block">
+      <pre>
+<span class="t-comment">/* ── Design Tokens (style.css) ─────────────────── */</span>
+<span class="t-selector">:root</span> <span class="t-punc">{</span>
+  <span class="t-prop">--color-primary</span><span class="t-punc">:</span>   <span class="t-val">#YOUR_COLOR</span><span class="t-punc">;</span>   <span class="t-comment">/* ✏️ FILL */</span>
+  <span class="t-prop">--color-accent</span><span class="t-punc">:</span>    <span class="t-val">#YOUR_COLOR</span><span class="t-punc">;</span>
+  <span class="t-prop">--font-heading</span><span class="t-punc">:</span>    <span class="t-val">'YOUR_FONT', serif</span><span class="t-punc">;</span>
+  <span class="t-prop">--font-body</span><span class="t-punc">:</span>       <span class="t-val">'YOUR_FONT', sans-serif</span><span class="t-punc">;</span>
+  <span class="t-prop">--max-width</span><span class="t-punc">:</span>       <span class="t-val">1100px</span><span class="t-punc">;</span>
+<span class="t-punc">}</span>
+
+<span class="t-comment">/* ── Card component ────────────────────────────── */</span>
+<span class="t-selector">.card</span> <span class="t-punc">{</span>
+  <span class="t-prop">background</span><span class="t-punc">:</span>    <span class="t-val">var(--color-surface)</span><span class="t-punc">;</span>
+  <span class="t-prop">border-radius</span><span class="t-punc">:</span> <span class="t-val">12px</span><span class="t-punc">;</span>
+  <span class="t-prop">box-shadow</span><span class="t-punc">:</span>    <span class="t-val">0 4px 20px rgba(0,0,0,.08)</span><span class="t-punc">;</span>
+  <span class="t-prop">padding</span><span class="t-punc">:</span>       <span class="t-val">32px</span><span class="t-punc">;</span>
+<span class="t-punc">}</span>
+
+<span class="t-comment">/* ── ✏️ FILL: Paste your own CSS below ─────────── */</span></pre>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- ✏️ FILL: Replace the placeholder below with an image of your site showing its visual design.
+         <img src="site_design_preview.png" alt="Portfolio site visual design"> -->
+    <p class="muted" style="margin-bottom: 12px; font-size: 13px;">Visual preview of the site:</p>
+    <div class="ss-box">
+      <div class="ss-placeholder" style="min-height: 200px;">
+        <div class="ss-placeholder-icon">&#128247;</div>
+        <div class="ss-placeholder-text">Replace with a full-page screenshot of your site to show styling</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       06 – FOUR EXTRAS
+  ════════════════════════════════ -->
+  <section class="card">
+    <div class="card-tag">Section 06</div>
+    <h2 class="card-title">
+      Four Extras
+      <span class="score">~25 pts</span>
+    </h2>
+
+    <div class="extras-grid">
+
+      <!-- ──── EXTRA 1 ──── -->
+      <div class="extra-card">
+        <div class="extra-num">Extra &nbsp;01</div>
+        <!-- ✏️ FILL: Replace "Feature Name" with your extra's name -->
+        <div class="extra-name">Feature Name</div>
+        <!-- ✏️ FILL: Describe what the feature does and how you built it -->
+        <div class="extra-desc">Brief description of this extra and how it was implemented in the site.</div>
+        <div class="code-block">
+          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
+<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
+  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
+<span class="t-punc">}</span></pre>
+        </div>
+      </div>
+
+      <!-- ──── EXTRA 2 ──── -->
+      <div class="extra-card">
+        <div class="extra-num">Extra &nbsp;02</div>
+        <div class="extra-name">Feature Name</div>
+        <div class="extra-desc">Brief description of this extra and how it was implemented.</div>
+        <div class="code-block">
+          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
+<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
+  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
+<span class="t-punc">}</span></pre>
+        </div>
+      </div>
+
+      <!-- ──── EXTRA 3 ──── -->
+      <div class="extra-card">
+        <div class="extra-num">Extra &nbsp;03</div>
+        <div class="extra-name">Feature Name</div>
+        <div class="extra-desc">Brief description of this extra and how it was implemented.</div>
+        <div class="code-block">
+          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
+<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
+  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
+<span class="t-punc">}</span></pre>
+        </div>
+      </div>
+
+      <!-- ──── EXTRA 4 ──── -->
+      <div class="extra-card">
+        <div class="extra-num">Extra &nbsp;04</div>
+        <div class="extra-name">Feature Name</div>
+        <div class="extra-desc">Brief description of this extra and how it was implemented.</div>
+        <div class="code-block">
+          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
+<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
+  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
+<span class="t-punc">}</span></pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+  <footer class="pg-footer">
+    Lê Văn Bi &nbsp;&middot;&nbsp; SE200467 &nbsp;&middot;&nbsp; FPT University &nbsp;&middot;&nbsp; Portfolio Submission
+  </footer>
+
+</div>
+</body>
+</html>
