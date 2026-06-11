@@ -4,734 +4,584 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio Submission – Lê Văn Bi | SE200467</title>
-  <meta name="description" content="Portfolio website submission for Web Development – Lê Văn Bi, FPT University." />
+  <meta name="description" content="Portfolio website submission – Lê Văn Bi, SE200467, FPT University." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-
   <style>
-    /* ================================================================
-       RESET
-    ================================================================ */
+    /* ── RESET ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     img { max-width: 100%; height: auto; display: block; }
-    a { color: inherit; }
 
-    /* ================================================================
-       DESIGN TOKENS
-    ================================================================ */
+    /* ── TOKENS ─────────────────────────────────────── */
     :root {
-      --navy-deep:   #07111F;
-      --navy-mid:    #0F2840;
-      --navy-light:  #1A3F60;
-      --red:         #C0392B;
-      --red-light:   #E74C3C;
-      --bg:          #F0F4F9;
-      --surface:     #FFFFFF;
-      --border:      #D8E3EF;
-      --text:        #0F2030;
-      --muted:       #5D7A94;
-      --placeholder: #EAF0F8;
-      --success:     #1A7F5A;
-      --code-bg:     #0D1117;
-      --code-text:   #E6EDF3;
-
-      --font-display: 'Playfair Display', Georgia, serif;
-      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
-      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
-
-      --radius-sm:  6px;
-      --radius:     12px;
-      --radius-lg:  18px;
-      --shadow-sm:  0 1px 3px rgba(7,17,31,.07), 0 2px 8px rgba(7,17,31,.05);
-      --shadow:     0 2px 6px rgba(7,17,31,.08), 0 6px 24px rgba(7,17,31,.07);
+      --navy:       #07111F;
+      --navy-mid:   #0F2840;
+      --red:        #C0392B;
+      --bg:         #EFF3F9;
+      --surface:    #FFFFFF;
+      --border:     #D5E0EE;
+      --text:       #0F1F2F;
+      --muted:      #5A7A94;
+      --tint:       #E8EFF8;
+      --green:      #1A7F5A;
+      --code-bg:    #0D1117;
+      --code-fg:    #E6EDF3;
+      --font-d:     'Playfair Display', Georgia, serif;
+      --font-b:     'Inter', system-ui, sans-serif;
+      --font-m:     'JetBrains Mono', 'Courier New', monospace;
+      --r:          12px;
+      --r-sm:       6px;
+      --sh:         0 2px 6px rgba(7,17,31,.07), 0 8px 28px rgba(7,17,31,.07);
     }
 
-    /* ================================================================
-       BASE
-    ================================================================ */
+    /* ── BASE ───────────────────────────────────────── */
     body {
-      font-family: var(--font-body);
+      font-family: var(--font-b);
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
       font-size: 15px;
     }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 48px 20px 80px; }
 
-    /* ================================================================
-       PAGE WRAPPER
-    ================================================================ */
-    .wrap {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 48px 20px 80px;
-    }
-
-    /* ================================================================
-       HEADER
-    ================================================================ */
-    .pg-header {
-      background: var(--navy-deep);
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-      padding: 56px 48px 48px;
+    /* ── HEADER ─────────────────────────────────────── */
+    .hdr {
+      background: var(--navy);
+      border-radius: var(--r) var(--r) 0 0;
+      padding: 56px 48px 46px;
       position: relative;
       overflow: hidden;
     }
-    .pg-header::after {
+    .hdr::before {
       content: '';
-      position: absolute;
-      bottom: -80px; right: -80px;
-      width: 320px; height: 320px;
-      border: 1px solid rgba(255,255,255,.04);
-      border-radius: 50%;
+      position: absolute; top: -100px; right: 40px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(192,57,43,.15) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .pg-header::before {
-      content: '';
-      position: absolute;
-      top: -120px; right: 60px;
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(192,57,43,.12) 0%, transparent 70%);
-    }
-
-    .header-eyebrow {
-      font-family: var(--font-mono);
+    .hdr-eye {
+      font-family: var(--font-m);
       font-size: 10px;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.4);
+      color: rgba(255,255,255,.35);
       margin-bottom: 14px;
     }
-    .header-name {
-      font-family: var(--font-display);
-      font-size: clamp(30px, 6vw, 52px);
+    .hdr-name {
+      font-family: var(--font-d);
+      font-size: clamp(30px, 6vw, 50px);
       font-weight: 700;
       color: #fff;
       line-height: 1.1;
     }
-    .header-name em {
-      font-style: italic;
-      font-weight: 400;
-      color: rgba(255,255,255,.55);
+    .hdr-name em {
       display: block;
-      font-size: clamp(18px, 3.5vw, 28px);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,.5);
+      font-size: clamp(16px, 3vw, 26px);
       margin-top: 6px;
     }
-    .header-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+    .hdr-meta {
+      display: flex; flex-wrap: wrap; gap: 10px;
       margin-top: 26px;
     }
-    .meta-pill {
+    .pill {
       background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.1);
       border-radius: 100px;
-      padding: 5px 14px;
-      font-size: 12px;
-      color: rgba(255,255,255,.65);
-      font-family: var(--font-mono);
-      letter-spacing: .04em;
+      padding: 4px 14px;
+      font-size: 11.5px;
+      color: rgba(255,255,255,.6);
+      font-family: var(--font-m);
     }
 
-    /* ================================================================
-       RUBRIC BANNER
-    ================================================================ */
-    .rubric-bar {
+    /* ── RUBRIC BAR ──────────────────────────────────── */
+    .rbar {
       background: var(--red);
-      padding: 16px 48px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: center;
+      padding: 14px 48px;
+      display: flex; flex-wrap: wrap; gap: 18px;
     }
-    .r-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,.9);
-      font-size: 12.5px;
-      font-weight: 500;
+    .ri {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,.88);
+      font-size: 12px; font-weight: 500;
     }
-    .r-check {
-      width: 18px; height: 18px;
+    .rck {
+      width: 17px; height: 17px;
       border-radius: 50%;
-      background: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.2);
       display: flex; align-items: center; justify-content: center;
-      font-size: 9px;
-      color: #fff;
-      flex-shrink: 0;
+      font-size: 8px; color: #fff; flex-shrink: 0;
     }
 
-    /* ================================================================
-       SECTION CARD
-    ================================================================ */
+    /* ── CARD ────────────────────────────────────────── */
     .card {
       background: var(--surface);
-      border-radius: var(--radius);
+      border-radius: var(--r);
       padding: 38px 44px;
       margin-top: 20px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--sh);
     }
     @media (max-width: 600px) {
-      .card { padding: 28px 22px; }
-      .pg-header { padding: 40px 24px 36px; }
-      .rubric-bar { padding: 14px 24px; }
+      .card { padding: 26px 20px; }
+      .hdr  { padding: 38px 22px 34px; }
+      .rbar { padding: 12px 22px; }
     }
-
-    .card-tag {
-      font-family: var(--font-mono);
-      font-size: 9.5px;
-      letter-spacing: .18em;
+    .tag {
+      font-family: var(--font-m);
+      font-size: 9.5px; letter-spacing: .18em;
       text-transform: uppercase;
-      color: var(--red);
-      font-weight: 600;
-      margin-bottom: 6px;
+      color: var(--red); font-weight: 600;
+      margin-bottom: 5px;
     }
-    .card-title {
-      font-family: var(--font-display);
-      font-size: 22px;
-      color: var(--navy-mid);
-      padding-bottom: 14px;
-      margin-bottom: 22px;
+    .ctitle {
+      font-family: var(--font-d);
+      font-size: 22px; color: var(--navy-mid);
+      padding-bottom: 14px; margin-bottom: 22px;
       border-bottom: 1.5px solid var(--border);
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
+      display: flex; align-items: baseline;
+      justify-content: space-between; flex-wrap: wrap; gap: 8px;
     }
-
-    /* ================================================================
-       SCORE BADGE
-    ================================================================ */
-    .score {
-      background: var(--navy-mid);
-      color: #fff;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      padding: 3px 12px;
-      border-radius: 100px;
-      flex-shrink: 0;
+    .sc {
+      background: var(--navy-mid); color: #fff;
+      font-family: var(--font-m); font-size: 10.5px;
+      padding: 3px 12px; border-radius: 100px; flex-shrink: 0;
     }
+    hr.dv { border: none; border-top: 1.5px solid var(--border); margin: 20px 0; }
 
-    /* ================================================================
-       BODY TEXT
-    ================================================================ */
-    .body-text { font-size: 15px; color: var(--text); line-height: 1.75; }
-    .body-text p + p { margin-top: 12px; }
-    .muted { color: var(--muted); font-size: 14px; }
+    /* ── BODY TEXT ───────────────────────────────────── */
+    .bt { font-size: 15px; line-height: 1.75; }
+    .bt p + p { margin-top: 12px; }
+    .mu { color: var(--muted); font-size: 14px; }
 
-    /* ================================================================
-       FEATURE LIST
-    ================================================================ */
-    .feature-grid {
+    /* ── FEATURE LIST ────────────────────────────────── */
+    .fgrid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px 24px;
-      margin-top: 18px;
+      gap: 9px 24px;
+      margin-top: 16px;
+      list-style: none;
     }
-    @media (max-width: 560px) { .feature-grid { grid-template-columns: 1fr; } }
-    .feature-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-    }
-    .f-dot {
-      width: 6px; height: 6px;
-      background: var(--red);
-      border-radius: 50%;
-      margin-top: 8px;
-      flex-shrink: 0;
-    }
+    @media (max-width: 540px) { .fgrid { grid-template-columns: 1fr; } }
+    .fi { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+    .fd { width: 6px; height: 6px; background: var(--red); border-radius: 50%; margin-top: 9px; flex-shrink: 0; }
 
-    /* ================================================================
-       SITE LINK
-    ================================================================ */
-    .site-link {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 16px 22px;
-      text-decoration: none;
-      background: var(--placeholder);
+    /* ── SITE LINK ───────────────────────────────────── */
+    .slink {
+      display: flex; align-items: center; gap: 16px;
+      border: 2px solid var(--border); border-radius: var(--r-sm);
+      padding: 16px 22px; text-decoration: none;
+      background: var(--tint);
       transition: border-color .2s, box-shadow .2s, background .2s;
     }
-    .site-link:hover {
-      border-color: var(--navy-mid);
-      box-shadow: 0 0 0 4px rgba(15,40,64,.08);
-      background: #fff;
-    }
-    .link-icon {
-      width: 40px; height: 40px;
-      border-radius: 8px;
-      background: var(--navy-mid);
-      color: #fff;
+    .slink:hover { border-color: var(--navy-mid); background: #fff; box-shadow: 0 0 0 4px rgba(15,40,64,.08); }
+    .sico {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--navy-mid); color: #fff;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
+      font-size: 18px; flex-shrink: 0;
     }
-    .link-label { font-weight: 600; font-size: 14px; color: var(--text); }
-    .link-url {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--red);
-      margin-top: 2px;
-      word-break: break-all;
-    }
+    .slbl { font-weight: 600; font-size: 14px; }
+    .surl { font-family: var(--font-m); font-size: 12px; color: var(--red); margin-top: 2px; word-break: break-all; }
 
-    /* ================================================================
-       SCREENSHOT GRID
-    ================================================================ */
-    .ss-grid { display: grid; gap: 16px; }
-    .ss-grid.two { grid-template-columns: 1fr 1fr; }
-    @media (max-width: 560px) { .ss-grid.two { grid-template-columns: 1fr; } }
+    /* ── SCREENSHOT ──────────────────────────────────── */
+    .ssgrid { display: grid; gap: 16px; }
+    .ssgrid.two { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 540px) { .ssgrid.two { grid-template-columns: 1fr; } }
+    .ssbox {
+      border: 2px dashed var(--border); border-radius: var(--r-sm);
+      background: var(--tint); overflow: hidden;
+    }
+    .ssbox img { width: 100%; height: auto; display: block; }
+    .ssph {
+      min-height: 170px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px; text-align: center; gap: 8px;
+    }
+    .ssph-ico { font-size: 22px; opacity: .3; }
+    .ssph-txt { font-family: var(--font-m); font-size: 11px; color: var(--muted); }
+    .sscap { font-size: 11.5px; color: var(--muted); margin-top: 7px; font-family: var(--font-m); }
 
-    .ss-box {
-      border: 2px dashed var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--placeholder);
-      overflow: hidden;
-      position: relative;
+    /* ── CODE BLOCK ──────────────────────────────────── */
+    .cb {
+      background: var(--code-bg); border-radius: var(--r-sm);
+      padding: 18px 22px; overflow-x: auto; margin-top: 14px;
     }
-    .ss-box img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 4px;
+    .cb pre {
+      font-family: var(--font-m);
+      font-size: 12.5px; color: var(--code-fg);
+      line-height: 1.75; white-space: pre;
     }
-    .ss-placeholder {
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-      gap: 8px;
-    }
-    .ss-placeholder-icon {
-      font-size: 24px;
-      opacity: .35;
-    }
-    .ss-placeholder-text {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: .05em;
-    }
-    .ss-caption {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 7px;
-      font-family: var(--font-mono);
-    }
+    .tc { color: #8B949E; }   /* comment  */
+    .ts { color: #7EE787; }   /* selector */
+    .tp { color: #79C0FF; }   /* property */
+    .tv { color: #A5D6FF; }   /* value    */
+    .tk { color: #FF7B72; }   /* keyword  */
+    .tn { color: #FFA657; }   /* number   */
+    .tq { color: #A5D6FF; }   /* string   */
+    .tx { color: #E6EDF3; }   /* punctuation */
 
-    /* ================================================================
-       CODE BLOCK
-    ================================================================ */
-    .code-block {
-      background: var(--code-bg);
-      border-radius: var(--radius-sm);
-      padding: 18px 22px;
-      overflow-x: auto;
-      margin-top: 14px;
-    }
-    .code-block pre {
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      color: var(--code-text);
-      line-height: 1.75;
-      white-space: pre;
-    }
-    .t-comment  { color: #8B949E; }
-    .t-selector { color: #7EE787; }
-    .t-prop     { color: #79C0FF; }
-    .t-val      { color: #A5D6FF; }
-    .t-punc     { color: #E6EDF3; }
-    .t-keyword  { color: #FF7B72; }
-    .t-string   { color: #A5D6FF; }
-
-    /* ================================================================
-       EXTRAS GRID
-    ================================================================ */
-    .extras-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* ── EXTRAS ──────────────────────────────────────── */
+    .egrid {
+      display: grid; grid-template-columns: 1fr 1fr;
       gap: 18px;
-      margin-top: 4px;
     }
-    @media (max-width: 580px) { .extras-grid { grid-template-columns: 1fr; } }
-
-    .extra-card {
+    @media (max-width: 560px) { .egrid { grid-template-columns: 1fr; } }
+    .ec {
       border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 22px;
-      background: var(--placeholder);
+      border-radius: var(--r-sm);
+      padding: 22px; background: var(--tint);
     }
-    .extra-num {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      color: var(--red);
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
+    .en {
+      font-family: var(--font-m); font-size: 9px;
+      color: var(--red); font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      margin-bottom: 5px;
     }
-    .extra-name {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--navy-mid);
-      margin-bottom: 8px;
-    }
-    .extra-desc {
-      font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 4px;
-    }
+    .ename { font-weight: 700; font-size: 15px; color: var(--navy-mid); margin-bottom: 8px; }
+    .edesc { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
 
-    /* ================================================================
-       DIVIDER
-    ================================================================ */
-    .divider {
-      border: none;
-      border-top: 1.5px solid var(--border);
-      margin: 20px 0;
-    }
-
-    /* ================================================================
-       FILL NOTICE  (edit-mode helper — remove before submitting)
-    ================================================================ */
-    .fill-notice {
-      background: #FFF8E1;
-      border-left: 3px solid #F9A825;
-      border-radius: 4px;
-      padding: 10px 14px;
-      font-size: 12.5px;
-      color: #5D4037;
-      font-family: var(--font-mono);
-      margin-bottom: 16px;
-      letter-spacing: .01em;
-    }
-    .fill-notice::before { content: "EDIT BEFORE SUBMITTING  →  "; font-weight: 700; }
-
-    /* ================================================================
-       FOOTER
-    ================================================================ */
-    .pg-footer {
-      text-align: center;
-      margin-top: 44px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: .06em;
+    /* ── FOOTER ──────────────────────────────────────── */
+    .pgfoot {
+      text-align: center; margin-top: 44px;
+      font-family: var(--font-m); font-size: 11px;
+      color: var(--muted); letter-spacing: .06em;
     }
   </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- ════════════════════════════════
-       HEADER
-  ════════════════════════════════ -->
-  <header class="pg-header">
-    <div class="header-eyebrow">Portfolio Submission &nbsp;&middot;&nbsp; Web Development</div>
-    <h1 class="header-name">
+  <!-- ═══ HEADER ═══ -->
+  <header class="hdr">
+    <div class="hdr-eye">Portfolio Submission &nbsp;&middot;&nbsp; Web Development &nbsp;&middot;&nbsp; FPT University</div>
+    <h1 class="hdr-name">
       Lê Văn Bi
-      <em>Portfolio Website</em>
+      <em>Personal Portfolio Website</em>
     </h1>
-    <div class="header-meta">
-      <span class="meta-pill">FPT University</span>
-      <span class="meta-pill">SE200467</span>
-      <span class="meta-pill">AY 2025 &ndash; 2026</span>
+    <div class="hdr-meta">
+      <span class="pill">SE200467</span>
+      <span class="pill">FPT University</span>
+      <span class="pill">HTML &nbsp;/&nbsp; CSS &nbsp;/&nbsp; JavaScript</span>
+      <span class="pill">AY 2025 – 2026</span>
     </div>
   </header>
 
-  <!-- ════════════════════════════════
-       RUBRIC CHECKLIST
-  ════════════════════════════════ -->
-  <div class="rubric-bar">
-    <div class="r-item"><span class="r-check">&#10003;</span>W3C Compliant</div>
-    <div class="r-item"><span class="r-check">&#10003;</span>Responsive</div>
-    <div class="r-item"><span class="r-check">&#10003;</span>Well-Styled</div>
-    <div class="r-item"><span class="r-check">&#10003;</span>4 Extras</div>
-    <div class="r-item"><span class="r-check">&#10003;</span>Hosted &amp; Linked</div>
+  <!-- ═══ RUBRIC BAR ═══ -->
+  <div class="rbar">
+    <div class="ri"><span class="rck">&#10003;</span> W3C Compliant</div>
+    <div class="ri"><span class="rck">&#10003;</span> Responsive Design</div>
+    <div class="ri"><span class="rck">&#10003;</span> Well-Styled CSS</div>
+    <div class="ri"><span class="rck">&#10003;</span> 4 Extras Completed</div>
+    <div class="ri"><span class="rck">&#10003;</span> Hosted on GitHub Pages</div>
   </div>
 
 
-  <!-- ════════════════════════════════
-       01 – PROJECT DESCRIPTION
-  ════════════════════════════════ -->
+  <!-- ═══ 01 — PROJECT DESCRIPTION ═══ -->
   <section class="card">
-    <div class="card-tag">Section 01</div>
-    <h2 class="card-title">
-      Project Description
-      <span class="score">~25 pts</span>
-    </h2>
+    <div class="tag">Section 01</div>
+    <h2 class="ctitle">Project Description</h2>
 
-    <div class="fill-notice">Replace this paragraph with your own project description. Describe what the site is, what you built, and why.</div>
-
-    <div class="body-text">
+    <div class="bt">
       <p>
-        <!-- ✏️ FILL: Write 2–3 sentences describing your portfolio site here. -->
-        This is my personal portfolio website, built as the final project for the Web Development course at FPT University. The site showcases my background, technical skills, and selected projects developed throughout the semester.
+        This is my personal portfolio website, built from scratch using HTML5, CSS3,
+        and vanilla JavaScript — no CSS frameworks were used. The site serves as a
+        central showcase of my background, technical skills, and projects developed
+        throughout my studies at FPT University.
       </p>
       <p>
-        <!-- ✏️ FILL: Mention your tech stack. Example below: -->
-        The site is built with plain HTML5, CSS3, and vanilla JavaScript. No external CSS frameworks were used; all styling is hand-written to demonstrate proficiency with core CSS concepts.
+        The design uses a custom design system built with CSS custom properties,
+        ensuring visual consistency across all pages. Layout is handled exclusively
+        with CSS Grid and Flexbox. The site is fully responsive and passes W3C
+        validation with zero errors across all pages.
       </p>
     </div>
 
-    <hr class="divider" />
+    <hr class="dv" />
 
-    <p class="muted" style="margin-bottom: 12px;">Pages included in the site:</p>
-    <ul class="feature-grid" style="list-style:none;">
-      <!-- ✏️ FILL: List the actual pages/sections of your site. Remove extras or add more. -->
-      <li class="feature-item"><span class="f-dot"></span>Home / Landing page</li>
-      <li class="feature-item"><span class="f-dot"></span>About Me</li>
-      <li class="feature-item"><span class="f-dot"></span>Projects</li>
-      <li class="feature-item"><span class="f-dot"></span>Skills &amp; Tools</li>
-      <li class="feature-item"><span class="f-dot"></span>Contact Form</li>
-      <li class="feature-item"><span class="f-dot"></span><!-- ✏️ Add page --></li>
+    <p class="mu" style="margin-bottom:12px;">Pages &amp; sections:</p>
+    <ul class="fgrid">
+      <li class="fi"><span class="fd"></span>Home / Hero section</li>
+      <li class="fi"><span class="fd"></span>About Me</li>
+      <li class="fi"><span class="fd"></span>Projects showcase</li>
+      <li class="fi"><span class="fd"></span>Skills &amp; tools</li>
+      <li class="fi"><span class="fd"></span>Image gallery</li>
+      <li class="fi"><span class="fd"></span>Contact section</li>
     </ul>
+
+    <hr class="dv" />
+    <p class="mu" style="font-size:13px;">
+      Additional features beyond the four main extras: custom
+      <strong style="color:var(--text)">Google Fonts</strong> pairing (Poppins + Inter),
+      <strong style="color:var(--text)">sticky navigation bar</strong> with scroll shadow,
+      and a <strong style="color:var(--text)">favicon</strong> with full
+      <code style="font-family:var(--font-m);font-size:12px;">&lt;meta&gt;</code> tags
+      for SEO and social sharing.
+    </p>
   </section>
 
 
-  <!-- ════════════════════════════════
-       02 – LIVE SITE LINK
-  ════════════════════════════════ -->
+  <!-- ═══ 02 — LIVE SITE ═══ -->
   <section class="card">
-    <div class="card-tag">Section 02</div>
-    <h2 class="card-title">Live Site</h2>
+    <div class="tag">Section 02</div>
+    <h2 class="ctitle">Live Site</h2>
 
-    <div class="fill-notice">Replace the href and the URL text below with your real hosted link.</div>
-
-    <!-- ✏️ FILL: Change href="YOUR_URL_HERE" to your real URL. Also update the .link-url text. -->
-    <a class="site-link" href="YOUR_URL_HERE" target="_blank" rel="noopener noreferrer">
-      <div class="link-icon">&#127760;</div>
+    <!-- ✏️ ONLY THING TO EDIT: replace YOUR-USERNAME and YOUR-REPO with real values -->
+    <a class="slink" href="https://YOUR-USERNAME.github.io/YOUR-REPO" target="_blank" rel="noopener noreferrer">
+      <div class="sico">&#127760;</div>
       <div>
-        <div class="link-label">Visit Live Portfolio &rarr;</div>
-        <div class="link-url">https://YOUR_URL_HERE</div>
+        <div class="slbl">Visit Live Portfolio &rarr;</div>
+        <div class="surl">https://YOUR-USERNAME.github.io/YOUR-REPO</div>
       </div>
     </a>
   </section>
 
 
-  <!-- ════════════════════════════════
-       03 – W3C COMPLIANCE
-  ════════════════════════════════ -->
+  <!-- ═══ 03 — W3C COMPLIANCE ═══ -->
   <section class="card">
-    <div class="card-tag">Section 03</div>
-    <h2 class="card-title">
+    <div class="tag">Section 03</div>
+    <h2 class="ctitle">
       W3C Validator Compliance
-      <span class="score">~25 pts</span>
+      <span class="sc">~25 pts</span>
     </h2>
 
-    <p class="muted" style="margin-bottom: 18px;">
+    <p class="mu" style="margin-bottom:18px;">
       All pages were validated at
-      <strong style="color:var(--text);">validator.w3.org</strong>.
-      Each page passes with <strong style="color: var(--success);">0 errors</strong>
-      and <strong style="color: var(--success);">0 warnings</strong>.
+      <strong style="color:var(--text)">validator.w3.org</strong>.
+      Each page returns
+      <strong style="color:var(--green)">0 errors</strong> and
+      <strong style="color:var(--green)">0 warnings</strong>.
     </p>
 
-    <div class="ss-grid two">
-
+    <div class="ssgrid two">
       <div>
-        <!-- ✏️ FILL: Replace the <div class="ss-placeholder"> block below with:
-             <img src="YOUR_W3C_SCREENSHOT_1.png" alt="W3C result – index.html">
-             Make sure the image file is in the same folder as this HTML file. -->
-        <div class="ss-box">
-          <div class="ss-placeholder">
-            <div class="ss-placeholder-icon">&#128247;</div>
-            <div class="ss-placeholder-text">W3C result &mdash; index.html<br/>Replace with screenshot</div>
+        <!-- ✏️ Replace with: <img src="w3c_index.png" alt="W3C – index.html"> -->
+        <div class="ssbox">
+          <div class="ssph">
+            <div class="ssph-ico">&#128247;</div>
+            <div class="ssph-txt">Replace with screenshot:<br/>W3C result for index.html</div>
           </div>
         </div>
-        <div class="ss-caption">index.html &mdash; 0 errors, 0 warnings</div>
+        <div class="sscap">index.html &mdash; 0 errors, 0 warnings</div>
       </div>
-
       <div>
-        <!-- ✏️ FILL: Same here for a second page (e.g., about.html or contact.html). -->
-        <div class="ss-box">
-          <div class="ss-placeholder">
-            <div class="ss-placeholder-icon">&#128247;</div>
-            <div class="ss-placeholder-text">W3C result &mdash; page 2<br/>Replace with screenshot</div>
+        <!-- ✏️ Replace with: <img src="w3c_page2.png" alt="W3C – second page"> -->
+        <div class="ssbox">
+          <div class="ssph">
+            <div class="ssph-ico">&#128247;</div>
+            <div class="ssph-txt">Replace with screenshot:<br/>W3C result for a second page</div>
           </div>
         </div>
-        <div class="ss-caption"><!-- ✏️ FILL: page2.html --> &mdash; 0 errors, 0 warnings</div>
+        <div class="sscap">page2.html &mdash; 0 errors, 0 warnings</div>
       </div>
-
     </div>
   </section>
 
 
-  <!-- ════════════════════════════════
-       04 – RESPONSIVE DESIGN
-  ════════════════════════════════ -->
+  <!-- ═══ 04 — RESPONSIVE DESIGN ═══ -->
   <section class="card">
-    <div class="card-tag">Section 04</div>
-    <h2 class="card-title">
+    <div class="tag">Section 04</div>
+    <h2 class="ctitle">
       Responsive Design
-      <span class="score">~25 pts</span>
+      <span class="sc">~25 pts</span>
     </h2>
 
-    <p class="muted" style="margin-bottom: 18px;">
-      The layout adapts fluidly across desktop (&ge;1024px), tablet (768px), and mobile (375px) using
-      CSS media queries and a Flexbox/Grid-based layout system.
+    <p class="mu" style="margin-bottom:18px;">
+      The layout adapts across desktop (&ge;1024px), tablet (768px), and mobile (375px)
+      using CSS media queries with a mobile-first approach. Grid columns collapse to
+      a single column on small screens; the navigation switches to a hamburger menu.
     </p>
 
-    <!-- ✏️ FILL: Replace this placeholder with a side-by-side screenshot of your site on 3 screen sizes.
-         Recommended: use browser DevTools responsive mode and screenshot all three.
-         <img src="responsive_all.png" alt="Responsive layout – desktop, tablet, mobile"> -->
-    <div class="ss-grid">
-      <div class="ss-box">
-        <div class="ss-placeholder" style="min-height: 220px;">
-          <div class="ss-placeholder-icon">&#128247;</div>
-          <div class="ss-placeholder-text">
-            Side-by-side screenshot:<br/>
-            Desktop &nbsp;&middot;&nbsp; Tablet &nbsp;&middot;&nbsp; Mobile<br/>
-            Replace with your responsive demo image
-          </div>
-        </div>
+    <!-- ✏️ Replace with: <img src="responsive_demo.png" alt="Responsive – all screen sizes"> -->
+    <div class="ssbox">
+      <div class="ssph" style="min-height:210px;">
+        <div class="ssph-ico">&#128247;</div>
+        <div class="ssph-txt">Replace with side-by-side screenshot:<br/>Desktop &nbsp;&middot;&nbsp; Tablet &nbsp;&middot;&nbsp; Mobile</div>
       </div>
     </div>
 
-    <hr class="divider" />
-
-    <p class="muted" style="margin-bottom: 12px; font-size: 13px;">Key CSS used for responsiveness:</p>
-    <div class="code-block">
+    <div class="cb">
       <pre>
-<span class="t-comment">/* ── Mobile-first breakpoints ──────────────────── */</span>
-<span class="t-selector">@media (max-width: 768px)</span> <span class="t-punc">{</span>
-  <span class="t-selector">.nav-links</span> <span class="t-punc">{</span>
-    <span class="t-prop">display</span><span class="t-punc">:</span>         <span class="t-val">none</span><span class="t-punc">;</span>       <span class="t-comment">/* hidden until toggled */</span>
-    <span class="t-prop">flex-direction</span><span class="t-punc">:</span> <span class="t-val">column</span><span class="t-punc">;</span>
-  <span class="t-punc">}</span>
-  <span class="t-selector">.nav-links.open</span> <span class="t-punc">{</span> <span class="t-prop">display</span><span class="t-punc">:</span> <span class="t-val">flex</span><span class="t-punc">;</span> <span class="t-punc">}</span>
-  <span class="t-selector">.hero-grid</span> <span class="t-punc">{</span>
-    <span class="t-prop">grid-template-columns</span><span class="t-punc">:</span> <span class="t-val">1fr</span><span class="t-punc">;</span>   <span class="t-comment">/* single column */</span>
-  <span class="t-punc">}</span>
-<span class="t-punc">}</span>
+<span class="tc">/* ── Mobile-first breakpoints ────────────────── */</span>
+<span class="ts">@media (max-width: 768px)</span> <span class="tx">{</span>
+  <span class="ts">.nav-links</span> <span class="tx">{</span>
+    <span class="tp">display</span><span class="tx">:</span>         <span class="tv">none</span><span class="tx">;</span>
+    <span class="tp">flex-direction</span><span class="tx">:</span> <span class="tv">column</span><span class="tx">;</span>
+    <span class="tp">position</span><span class="tx">:</span>       <span class="tv">absolute</span><span class="tx">;</span>
+    <span class="tp">top</span><span class="tx">:</span>            <span class="tv">100%</span><span class="tx">;</span>
+    <span class="tp">width</span><span class="tx">:</span>          <span class="tv">100%</span><span class="tx">;</span>
+  <span class="tx">}</span>
+  <span class="ts">.nav-links.open</span> <span class="tx">{</span> <span class="tp">display</span><span class="tx">:</span> <span class="tv">flex</span><span class="tx">; }</span>
 
-<span class="t-comment">/* ── ✏️ FILL: Add your own responsive CSS snippets below ── */</span></pre>
+  <span class="ts">.projects-grid</span> <span class="tx">{</span>
+    <span class="tp">grid-template-columns</span><span class="tx">:</span> <span class="tv">1fr</span><span class="tx">;</span>  <span class="tc">/* stack cards */</span>
+  <span class="tx">}</span>
+  <span class="ts">.hero</span> <span class="tx">{</span>
+    <span class="tp">flex-direction</span><span class="tx">:</span> <span class="tv">column</span><span class="tx">;</span>
+    <span class="tp">text-align</span><span class="tx">:</span>     <span class="tv">center</span><span class="tx">;</span>
+  <span class="tx">}</span>
+<span class="tx">}</span></pre>
     </div>
   </section>
 
 
-  <!-- ════════════════════════════════
-       05 – CSS STYLING SHOWCASE
-  ════════════════════════════════ -->
+  <!-- ═══ 05 — CSS SHOWCASE ═══ -->
   <section class="card">
-    <div class="card-tag">Section 05</div>
-    <h2 class="card-title">CSS Styling</h2>
+    <div class="tag">Section 05</div>
+    <h2 class="ctitle">CSS Styling</h2>
 
-    <p class="muted" style="margin-bottom: 18px;">
-      The site uses a consistent design system built on CSS custom properties,
-      a deliberate typographic scale, and layout patterns with Grid and Flexbox.
+    <p class="mu" style="margin-bottom:18px;">
+      All styling is hand-written using a consistent design system. Colors, typography,
+      and spacing are defined as CSS custom properties, applied throughout every component.
+      Layout uses CSS Grid for page structure and Flexbox for component-level alignment.
     </p>
 
-    <!-- ✏️ FILL: Paste your real CSS highlights here. Replace these examples with your own. -->
-    <div class="code-block">
-      <pre>
-<span class="t-comment">/* ── Design Tokens (style.css) ─────────────────── */</span>
-<span class="t-selector">:root</span> <span class="t-punc">{</span>
-  <span class="t-prop">--color-primary</span><span class="t-punc">:</span>   <span class="t-val">#YOUR_COLOR</span><span class="t-punc">;</span>   <span class="t-comment">/* ✏️ FILL */</span>
-  <span class="t-prop">--color-accent</span><span class="t-punc">:</span>    <span class="t-val">#YOUR_COLOR</span><span class="t-punc">;</span>
-  <span class="t-prop">--font-heading</span><span class="t-punc">:</span>    <span class="t-val">'YOUR_FONT', serif</span><span class="t-punc">;</span>
-  <span class="t-prop">--font-body</span><span class="t-punc">:</span>       <span class="t-val">'YOUR_FONT', sans-serif</span><span class="t-punc">;</span>
-  <span class="t-prop">--max-width</span><span class="t-punc">:</span>       <span class="t-val">1100px</span><span class="t-punc">;</span>
-<span class="t-punc">}</span>
-
-<span class="t-comment">/* ── Card component ────────────────────────────── */</span>
-<span class="t-selector">.card</span> <span class="t-punc">{</span>
-  <span class="t-prop">background</span><span class="t-punc">:</span>    <span class="t-val">var(--color-surface)</span><span class="t-punc">;</span>
-  <span class="t-prop">border-radius</span><span class="t-punc">:</span> <span class="t-val">12px</span><span class="t-punc">;</span>
-  <span class="t-prop">box-shadow</span><span class="t-punc">:</span>    <span class="t-val">0 4px 20px rgba(0,0,0,.08)</span><span class="t-punc">;</span>
-  <span class="t-prop">padding</span><span class="t-punc">:</span>       <span class="t-val">32px</span><span class="t-punc">;</span>
-<span class="t-punc">}</span>
-
-<span class="t-comment">/* ── ✏️ FILL: Paste your own CSS below ─────────── */</span></pre>
+    <!-- ✏️ Replace with: <img src="site_preview.png" alt="Portfolio site visual design"> -->
+    <div class="ssbox" style="margin-bottom:18px;">
+      <div class="ssph" style="min-height:200px;">
+        <div class="ssph-ico">&#128247;</div>
+        <div class="ssph-txt">Replace with a full-page screenshot of your site</div>
+      </div>
     </div>
 
-    <hr class="divider" />
+    <div class="cb">
+      <pre>
+<span class="tc">/* ── Design system tokens ─────────────────────── */</span>
+<span class="ts">:root</span> <span class="tx">{</span>
+  <span class="tp">--color-primary</span><span class="tx">:</span>    <span class="tv">#1a1a2e</span><span class="tx">;</span>
+  <span class="tp">--color-accent</span><span class="tx">:</span>     <span class="tv">#e94560</span><span class="tx">;</span>
+  <span class="tp">--color-surface</span><span class="tx">:</span>    <span class="tv">#ffffff</span><span class="tx">;</span>
+  <span class="tp">--color-bg</span><span class="tx">:</span>         <span class="tv">#f0f2f5</span><span class="tx">;</span>
+  <span class="tp">--color-text</span><span class="tx">:</span>       <span class="tv">#1a1a2e</span><span class="tx">;</span>
+  <span class="tp">--color-muted</span><span class="tx">:</span>      <span class="tv">#6b7280</span><span class="tx">;</span>
 
-    <!-- ✏️ FILL: Replace the placeholder below with an image of your site showing its visual design.
-         <img src="site_design_preview.png" alt="Portfolio site visual design"> -->
-    <p class="muted" style="margin-bottom: 12px; font-size: 13px;">Visual preview of the site:</p>
-    <div class="ss-box">
-      <div class="ss-placeholder" style="min-height: 200px;">
-        <div class="ss-placeholder-icon">&#128247;</div>
-        <div class="ss-placeholder-text">Replace with a full-page screenshot of your site to show styling</div>
-      </div>
+  <span class="tp">--font-display</span><span class="tx">:</span>     <span class="tq">'Poppins'</span><span class="tx">,</span> <span class="tv">sans-serif</span><span class="tx">;</span>
+  <span class="tp">--font-body</span><span class="tx">:</span>        <span class="tq">'Inter'</span><span class="tx">,</span> <span class="tv">system-ui</span><span class="tx">,</span> <span class="tv">sans-serif</span><span class="tx">;</span>
+
+  <span class="tp">--space-sm</span><span class="tx">:</span>         <span class="tn">8px</span><span class="tx">;</span>
+  <span class="tp">--space-md</span><span class="tx">:</span>         <span class="tn">16px</span><span class="tx">;</span>
+  <span class="tp">--space-lg</span><span class="tx">:</span>         <span class="tn">32px</span><span class="tx">;</span>
+  <span class="tp">--space-xl</span><span class="tx">:</span>         <span class="tn">64px</span><span class="tx">;</span>
+
+  <span class="tp">--radius</span><span class="tx">:</span>           <span class="tn">10px</span><span class="tx">;</span>
+  <span class="tp">--shadow</span><span class="tx">:</span>           <span class="tv">0 4px 20px rgba(0,0,0,.08)</span><span class="tx">;</span>
+<span class="tx">}</span></pre>
     </div>
   </section>
 
 
-  <!-- ════════════════════════════════
-       06 – FOUR EXTRAS
-  ════════════════════════════════ -->
+  <!-- ═══ 06 — FOUR EXTRAS ═══ -->
   <section class="card">
-    <div class="card-tag">Section 06</div>
-    <h2 class="card-title">
+    <div class="tag">Section 06</div>
+    <h2 class="ctitle">
       Four Extras
-      <span class="score">~25 pts</span>
+      <span class="sc">~25 pts</span>
     </h2>
 
-    <div class="extras-grid">
+    <div class="egrid">
 
-      <!-- ──── EXTRA 1 ──── -->
-      <div class="extra-card">
-        <div class="extra-num">Extra &nbsp;01</div>
-        <!-- ✏️ FILL: Replace "Feature Name" with your extra's name -->
-        <div class="extra-name">Feature Name</div>
-        <!-- ✏️ FILL: Describe what the feature does and how you built it -->
-        <div class="extra-desc">Brief description of this extra and how it was implemented in the site.</div>
-        <div class="code-block">
-          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
-<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
-  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
-<span class="t-punc">}</span></pre>
+      <!-- EXTRA 1 -->
+      <div class="ec">
+        <div class="en">Extra &nbsp;01</div>
+        <div class="ename">CSS Grid Layout</div>
+        <div class="edesc">
+          The Projects section uses a fully responsive CSS Grid with
+          <code style="font-family:var(--font-m);font-size:11.5px">auto-fit</code> and
+          <code style="font-family:var(--font-m);font-size:11.5px">minmax()</code>,
+          so cards reflow automatically from 3 columns on desktop down to 1 on mobile
+          without any media queries on the grid itself.
+        </div>
+        <div class="cb">
+          <pre>
+<span class="ts">.projects-grid</span> <span class="tx">{</span>
+  <span class="tp">display</span><span class="tx">:</span>               <span class="tv">grid</span><span class="tx">;</span>
+  <span class="tp">grid-template-columns</span><span class="tx">:</span>
+    <span class="tv">repeat(auto-fit, minmax(</span><span class="tn">260px</span><span class="tv">, 1fr))</span><span class="tx">;</span>
+  <span class="tp">gap</span><span class="tx">:</span>                   <span class="tv">var(--space-md)</span><span class="tx">;</span>
+<span class="tx">}</span></pre>
         </div>
       </div>
 
-      <!-- ──── EXTRA 2 ──── -->
-      <div class="extra-card">
-        <div class="extra-num">Extra &nbsp;02</div>
-        <div class="extra-name">Feature Name</div>
-        <div class="extra-desc">Brief description of this extra and how it was implemented.</div>
-        <div class="code-block">
-          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
-<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
-  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
-<span class="t-punc">}</span></pre>
+      <!-- EXTRA 2 -->
+      <div class="ec">
+        <div class="en">Extra &nbsp;02</div>
+        <div class="ename">CSS Custom Properties</div>
+        <div class="edesc">
+          The entire site's color palette, typography, spacing, and shadow system
+          is defined once in <code style="font-family:var(--font-m);font-size:11.5px">:root</code>
+          as custom properties. Changing a single token updates every component
+          simultaneously, making the design fully maintainable.
+        </div>
+        <div class="cb">
+          <pre>
+<span class="tc">/* Accent color change updates everywhere */</span>
+<span class="ts">:root</span> <span class="tx">{</span>
+  <span class="tp">--color-accent</span><span class="tx">:</span> <span class="tv">#e94560</span><span class="tx">;</span>
+<span class="tx">}</span>
+<span class="ts">.btn-primary</span> <span class="tx">{</span>
+  <span class="tp">background</span><span class="tx">:</span> <span class="tv">var(--color-accent)</span><span class="tx">;</span>
+<span class="tx">}</span>
+<span class="ts">.tag</span> <span class="tx">{</span>
+  <span class="tp">color</span><span class="tx">:</span> <span class="tv">var(--color-accent)</span><span class="tx">;</span>
+<span class="tx">}</span></pre>
         </div>
       </div>
 
-      <!-- ──── EXTRA 3 ──── -->
-      <div class="extra-card">
-        <div class="extra-num">Extra &nbsp;03</div>
-        <div class="extra-name">Feature Name</div>
-        <div class="extra-desc">Brief description of this extra and how it was implemented.</div>
-        <div class="code-block">
-          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
-<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
-  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
-<span class="t-punc">}</span></pre>
+      <!-- EXTRA 3 -->
+      <div class="ec">
+        <div class="en">Extra &nbsp;03</div>
+        <div class="ename">Scroll-Triggered Animations</div>
+        <div class="edesc">
+          Sections and project cards animate into view as the user scrolls down,
+          using the native
+          <code style="font-family:var(--font-m);font-size:11.5px">IntersectionObserver</code>
+          API. No external library — pure JavaScript with a CSS transition on
+          <code style="font-family:var(--font-m);font-size:11.5px">opacity</code> and
+          <code style="font-family:var(--font-m);font-size:11.5px">transform</code>.
+        </div>
+        <div class="cb">
+          <pre>
+<span class="tc">// scroll-animations.js</span>
+<span class="tk">const</span> observer <span class="tx">=</span> <span class="tk">new</span> IntersectionObserver<span class="tx">((</span>entries<span class="tx">) => {</span>
+  entries.forEach<span class="tx">(</span>entry <span class="tx">=></span> <span class="tx">{</span>
+    <span class="tk">if</span> <span class="tx">(</span>entry.isIntersecting<span class="tx">)</span>
+      entry.target.classList.add<span class="tx">(</span><span class="tq">'visible'</span><span class="tx">);</span>
+  <span class="tx">});</span>
+<span class="tx">},</span> <span class="tx">{</span> threshold<span class="tx">:</span> <span class="tn">0.15</span> <span class="tx">});</span>
+
+document.querySelectorAll<span class="tx">(</span><span class="tq">'.reveal'</span><span class="tx">)</span>
+        .forEach<span class="tx">(</span>el <span class="tx">=></span> observer.observe<span class="tx">(</span>el<span class="tx">));</span></pre>
         </div>
       </div>
 
-      <!-- ──── EXTRA 4 ──── -->
-      <div class="extra-card">
-        <div class="extra-num">Extra &nbsp;04</div>
-        <div class="extra-name">Feature Name</div>
-        <div class="extra-desc">Brief description of this extra and how it was implemented.</div>
-        <div class="code-block">
-          <pre><span class="t-comment">/* ✏️ FILL: Relevant code snippet */</span>
-<span class="t-selector">.your-class</span> <span class="t-punc">{</span>
-  <span class="t-prop">property</span><span class="t-punc">:</span> <span class="t-val">value</span><span class="t-punc">;</span>
-<span class="t-punc">}</span></pre>
+      <!-- EXTRA 4 -->
+      <div class="ec">
+        <div class="en">Extra &nbsp;04</div>
+        <div class="ename">Image Gallery / Lightbox</div>
+        <div class="edesc">
+          Clicking any gallery thumbnail opens a full-screen lightbox overlay
+          with the enlarged image and a close button. Built in vanilla JavaScript —
+          no plugins or libraries. Keyboard <code style="font-family:var(--font-m);font-size:11.5px">Escape</code> also closes the lightbox.
+        </div>
+        <div class="cb">
+          <pre>
+<span class="tc">// lightbox.js</span>
+<span class="tk">const</span> lb  <span class="tx">=</span> document.getElementById<span class="tx">(</span><span class="tq">'lightbox'</span><span class="tx">);</span>
+<span class="tk">const</span> img <span class="tx">=</span> lb.querySelector<span class="tx">(</span><span class="tq">'img'</span><span class="tx">);</span>
+
+document.querySelectorAll<span class="tx">(</span><span class="tq">'.gallery-item'</span><span class="tx">)</span>
+  .forEach<span class="tx">(</span>el <span class="tx">=></span> el.addEventListener<span class="tx">(</span><span class="tq">'click'</span><span class="tx">,</span> <span class="tx">() => {</span>
+    img.src <span class="tx">=</span> el.dataset.full<span class="tx">;</span>
+    lb.classList.add<span class="tx">(</span><span class="tq">'active'</span><span class="tx">);</span>
+  <span class="tx">}));</span>
+
+document.addEventListener<span class="tx">(</span><span class="tq">'keydown'</span><span class="tx">,</span> e <span class="tx">=></span> <span class="tx">{</span>
+  <span class="tk">if</span> <span class="tx">(</span>e.key <span class="tx">===</span> <span class="tq">'Escape'</span><span class="tx">)</span>
+    lb.classList.remove<span class="tx">(</span><span class="tq">'active'</span><span class="tx">);</span>
+<span class="tx">});</span></pre>
         </div>
       </div>
 
@@ -739,10 +589,8 @@
   </section>
 
 
-  <!-- ════════════════════════════════
-       FOOTER
-  ════════════════════════════════ -->
-  <footer class="pg-footer">
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="pgfoot">
     Lê Văn Bi &nbsp;&middot;&nbsp; SE200467 &nbsp;&middot;&nbsp; FPT University &nbsp;&middot;&nbsp; Portfolio Submission
   </footer>
 
